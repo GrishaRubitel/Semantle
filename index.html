@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Semantle</title>
+</head>
+<body>
+
+    <div class="ruleBlock" id="ruleBlock">
+        <div id="ruleText">
+            <div>
+                <p>Цель</p>Угадать слово
+            </div>
+            <div>
+                <p>Как</p>Нужно ввести слово в соответствующую строку
+            </div>
+            <div>
+                <p>Что получим?</p>Процент совпадения смыслов загаданного слова и введённое вами
+            </div>
+        </div>
+    </div>
+
+    <div class="message displayMes" id="message">
+        <h4>Сообщение!</h4>
+        <div id="messageLine"></div>
+    </div>
+
+    <section class="pageArea">
+        
+        <section class="logArea">
+            <section>
+                <div class="guess" id="last">
+                    <div class="guessItem">
+                        <span class="percent" id="lastPerc"></span>
+                        <span class="word" id="lastWord"></span>  
+                    </div>
+                    <h4><div class="bar left upper"></div>Последняя догадка<div class="bar right upper"></div></h4>
+                </div>
+                <div class="guess" id="best">
+                    <div class="guessItem">
+                        <span class="percent" id="bestPerc">-900</span>
+                        <span class="word" id="bestWord"></span>
+                    </div>
+                    <h4><div class="bar left lower"></div>Лучшая догадка<div class="bar right lower"></div></h4>
+                </div>
+                <button class="createQuerry" id="hintButt" onclick="hintHandler()">Подсказка</button>
+            </section>
+        </section>
+
+
+        <section class="inputArea">
+            <h1>Семантл</h1>
+            <div class="inputSection">
+                <input type="text" class="inputRequest" id="inputRequest" placeholder="Напиши слово">
+                <button class="createQuerry" onclick="sendRequest()" id="enter"><img src="icons/search.png" alt="" id="magnifingGlass"></button>
+            </div>
+            <div class="rules">
+                <button onclick="showRules()"><p>Правила игры</p></button>
+            </div>
+        </section>
+
+
+        <section class="historyArea">
+            <div class="historyBack">
+                <ul class="historyList" id="historyList"></ul>
+            </div>
+        </section>
+
+    </section>
+</body>
+<script src="script.js"></script>
+</html> 
