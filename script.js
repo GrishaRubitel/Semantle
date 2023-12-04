@@ -118,7 +118,7 @@ function updateHistory(inText, perc) {
     document.getElementById("inputRequest").value = "";
 }
 
-var host = "http://bac0-188-242-233-156.ngrok-free.app";
+var host = "http://bac0-188-242-233-156.ngrok-free.app:8080";
 var sypheredWord;
 var maxPerc;
 
