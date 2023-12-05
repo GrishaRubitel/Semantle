@@ -46,6 +46,7 @@ function wordsUpdate(text, perc, span) {
     lastP.innerHTML = perc;
 
     if (perc >= parseInt(bestP.innerHTML)) {
+        maxPerc = perc / 100;
         bestW.innerHTML = text;
         bestP.innerHTML = perc;
         bestP.style.backgroundColor = span.style.backgroundColor;
@@ -83,9 +84,20 @@ function createUserRequest(inText, flag) {
             
             updateHistory(inText, perc);
         })
+        
     } else if (flag == 1) {
         maxPerc = inText[1];
-        updateHistory(inText[0], inText[1].toFixed(2) * 100)
+        addCount(1);
+        updateHistory(inText[0], inText[1].toFixed(2) * 100);
+        message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
+        /*
+        if (inText[0].charAt(0).toUpperCase() + inText[0].slice(1) == document.getElementById("bestWord").innerHTML) {
+            message("Слова ближе не нашлось, вы близки к победе");
+        } else {
+            addCount(1);
+            message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
+        }
+        */
     }
 }
 
@@ -116,11 +128,12 @@ function updateHistory(inText, perc) {
     container.scrollTo(0, container.scrollHeight);
 
     document.getElementById("inputRequest").value = "";
+    addCount(0);
 }
 
 var host = "http://semantle.ru:8080";
 var sypheredWord;
-var maxPerc;
+var maxPerc = 0;
 
 getRandom();
 
@@ -179,4 +192,29 @@ function message(text) {
     setTimeout(function() {
         messageBlock.classList.add("displayMes");
     }, 3000)
+}
+
+let hintButt = document.getElementById("hintButt");
+let hintCounter = document.getElementById("counter");
+let value = 0;
+
+function addCount(flag) {
+    debugger;
+    if (flag == 0 && hintCounter.innerHTML < 5) {
+        value = parseInt(hintCounter.innerHTML) + 1; 
+        hintCounter.innerHTML = value;
+    } else if (flag == 1 && hintCounter.innerHTML == 5) {
+        value = -1; 
+        hintCounter.innerHTML = value;
+        hintButt.style.pointerEvents = "none";
+        hintButt.style.backgroundColor = "#404040";
+        return;
+    }
+    if (hintCounter.innerHTML == 5) {
+        hintButt.style.pointerEvents = "auto";
+        hintButt.style.backgroundColor = "#fff";
+    } else if (hintCounter.innerHTML < 5) {
+        hintButt.style.pointerEvents = "none";
+        hintButt.style.backgroundColor = "#404040";
+    }
 }

@@ -207,7 +207,7 @@ h1 {
     width: 80px;
     border-radius: 45px;
     box-shadow: 0 0 10px 4px #4C566A;
-    background-color: #ffffff;
+    background-color: #fff;
     border: 0;
     margin: 0 auto;
     color: #fff;
@@ -441,4 +441,15 @@ h4 {
 #hintButt {
     padding: 1rem 3rem;
     color: #000;
+    background-color: #404040;
+    pointer-events: none;
+}
+
+.activateHint div {
+    color: #fff;
+    margin: 0 auto;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
