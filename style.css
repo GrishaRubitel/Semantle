@@ -455,7 +455,7 @@ h4 {
     justify-content: center;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 900px) {
 
     .pageArea {
         display: grid; 
@@ -508,5 +508,11 @@ h4 {
 
     #last {
         display: none;
+    }
+
+    .historyList {
+        height: 1fr;
+        min-height: 1fr;
+        max-height: 1fr;
     }
 }
