@@ -190,6 +190,7 @@ html {
     color: #000;
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
+    z-index: 5;
 }
 
 .inputRequest::placeholder {
@@ -267,10 +268,6 @@ html {
     bottom: 1.1rem;
 }
 
-.rules:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
 .ruleBlock {
     z-index: 10;
     display: none;
@@ -296,7 +293,6 @@ html {
     background-color: #1a1e24;
     border-radius: 25px;
     padding: 40px;
-    cursor: default;
 }
 
 #ruleText p {
@@ -514,5 +510,10 @@ h4 {
         height: 1fr;
         min-height: 1fr;
         max-height: 1fr;
+    }
+
+    #ruleText {
+        width: fit-content;
+        margin: auto 5px;
     }
 }

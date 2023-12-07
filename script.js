@@ -5,14 +5,6 @@ window.addEventListener('keyup', function(event) {
     }
 });
 
-document.getElementById("ruleText").addEventListener('mouseenter', function() {
-    document.getElementById("ruleBlock").style.backgroundColor = "rgba(0,0,0,0.7)";
-});
-
-document.getElementById("ruleText").addEventListener('mouseleave', function() {
-    document.getElementById("ruleBlock").style.backgroundColor = "rgba(0,0,0,0.6)";
-});
-
 document.getElementById("ruleBlock").addEventListener('click', function() {
     document.getElementById("ruleBlock").style.display = "none";
 });
