@@ -191,7 +191,6 @@ let hintCounter = document.getElementById("counter");
 let value = 0;
 
 function addCount(flag) {
-    debugger;
     if (flag == 0 && hintCounter.innerHTML < 5) {
         value = parseInt(hintCounter.innerHTML) + 1; 
         hintCounter.innerHTML = value;
