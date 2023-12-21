@@ -81,15 +81,17 @@ function createUserRequest(inText, flag) {
         maxPerc = inText[1];
         addCount(1);
         updateHistory(inText[0], inText[1].toFixed(2) * 100);
-        message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
         /*
-        if (inText[0].charAt(0).toUpperCase() + inText[0].slice(1) == document.getElementById("bestWord").innerHTML) {
+        message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
+        */
+        
+        if (inText[0].charAt(0).toUpperCase() + inText[0].slice(1) != document.getElementById("bestWord").innerHTML) {
             message("Слова ближе не нашлось, вы близки к победе");
         } else {
             addCount(1);
             message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
         }
-        */
+        
     }
 }
 
@@ -116,7 +118,7 @@ function updateHistory(inText, perc) {
     newLI.appendChild(textLI);
 
     let container = document.getElementById('historyList');
-    container.appendChild(newLI);
+    container.insertBefore(newLI, container.firstChild);
     container.scrollTo(0, container.scrollHeight);
 
     document.getElementById("inputRequest").value = "";
@@ -191,7 +193,6 @@ let hintCounter = document.getElementById("counter");
 let value = 0;
 
 function addCount(flag) {
-    debugger;
     if (flag == 0 && hintCounter.innerHTML < 5) {
         value = parseInt(hintCounter.innerHTML) + 1; 
         hintCounter.innerHTML = value;
