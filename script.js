@@ -51,12 +51,29 @@ function wordsUpdate(text, perc, span) {
 
 function sendRequest() {
     let inText = document.getElementById("inputRequest").value.toLowerCase();
+    inText = inText.replace(/\s/g, '');
+    /*
     createUserRequest(inText, 0);
-    checkEquality(inText).then((response) => {
-        if (response == true) {
-            message("Ура, ты отгадал слово!");
-        }
+        checkEquality(inText).then((response) => {
+            if (response == true) {
+                message("Ура, ты отгадал слово!");
+            }
     });
+    */
+    createUserRequest(inText, 0);
+    checkEquality(inText)
+        .then((response) => {
+            if (response == true) {
+                message("Ура, ты отгадал слово!");
+            }
+        })
+        .catch((error) => {
+            console.error("Ошибка при выполнении запроса:", error);
+            message("В словаре нет такого слова");
+        })
+        .finally(() => {
+            console.log("Запрос завершен.");
+        });
 }
 
 function createUserRequest(inText, flag) {
@@ -119,7 +136,7 @@ function updateHistory(inText, perc) {
 
     let container = document.getElementById('historyList');
     container.insertBefore(newLI, container.firstChild);
-    container.scrollTo(0, container.scrollHeight);
+    container.scrollTo(0, 0 );
 
     document.getElementById("inputRequest").value = "";
     addCount(0);
@@ -178,13 +195,18 @@ function checkEquality(guess) {
 }
 
 function message(text) {
+    
     var messageBlock = document.getElementById("message");
     var line = document.getElementById("messageLine");
+    messageBlock.style.display = "block";
 
     messageBlock.classList.remove("displayMes");
     line.innerHTML = text;
     setTimeout(function() {
         messageBlock.classList.add("displayMes");
+        setTimeout(function() {
+            messageBlock.style.display = "none";
+        }, 200)
     }, 3000)
 }
 
