@@ -52,14 +52,13 @@ function wordsUpdate(text, perc, span) {
 function sendRequest() {
     let inText = document.getElementById("inputRequest").value.toLowerCase();
     inText = inText.replace(/\s/g, '');
-    /*
     createUserRequest(inText, 0);
         checkEquality(inText).then((response) => {
             if (response == true) {
                 message("Ура, ты отгадал слово!");
             }
     });
-    */
+    /*
     createUserRequest(inText, 0);
     checkEquality(inText)
         .then((response) => {
@@ -74,14 +73,16 @@ function sendRequest() {
         .finally(() => {
             console.log("Запрос завершен.");
         });
+    */
 }
 
 function createUserRequest(inText, flag) {
+    console.log(inText)
     if (inText != "" && flag == 0) {
         inText = inText.charAt(0).toUpperCase() + inText.slice(1);
         similarityRequest(inText).then((perc) => {
             perc = perc * 100;
-            if (perc >= 100) {
+            if (perc >= 95) {
                 perc = 100;
             } else if (perc < 10 && perc >= 0) {
                 perc = perc.toString().slice(0, 1);
@@ -97,16 +98,16 @@ function createUserRequest(inText, flag) {
     } else if (flag == 1) {
         maxPerc = inText[1];
         addCount(1);
-        updateHistory(inText[0], inText[1].toFixed(2) * 100);
-        /*
-        message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
-        */
+        let word = inText.split(" ", 2)
+        updateHistory(word[0], (word[1] * 100).toFixed(0));
         
-        if (inText[0].charAt(0).toUpperCase() + inText[0].slice(1) != document.getElementById("bestWord").innerHTML) {
+        //message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
+        
+        if (word[0].charAt(0).toUpperCase() + word[0].slice(1) != document.getElementById("bestWord").innerHTML) {
             message("Слова ближе не нашлось, вы близки к победе");
         } else {
             addCount(1);
-            message("Новое слово - " + inText[0].charAt(0).toUpperCase() + inText[0].slice(1));
+            message("Новое слово - " + word[0].charAt(0).toUpperCase() + word[0].slice(1));
         }
         
     }
@@ -142,7 +143,9 @@ function updateHistory(inText, perc) {
     addCount(0);
 }
 
-var host = "http://semantle.ru:8080";
+
+//var host = "http://semantle.ru:8080";
+var host = "http://localhost:8080";
 var sypheredWord;
 var maxPerc = 0;
 
@@ -156,8 +159,8 @@ function getRandom() {
     
 function similarityRequest(guess) {
     return fetch(host + "/similarity?" + new URLSearchParams({
-        encWord: sypheredWord,
-        word: guess,
+        secret_word: sypheredWord,
+        input: guess,
     }))
     .then((response) => response.json())
 }
@@ -180,16 +183,23 @@ function hintHandler() {
 
 function hintRequest(bG) {
     return fetch(host + "/hint?" + new URLSearchParams({
-        encWord: sypheredWord,
-        bestGuess: maxPerc,
+        secret_word: sypheredWord,
+        input: bG,
     }))
     .then((response) => response.json())
 }
 
 function checkEquality(guess) {
     return fetch(host + "/check?" + new URLSearchParams({
-        encWord: sypheredWord,
-        word: guess,
+        secret_word: sypheredWord,
+        input: guess,
+    }))
+    .then((response) => response.json())
+}
+
+function showFinish() {
+    return fetch(host + "/show_finish?" + new URLSearchParams({
+        secret_word: sypheredWord,
     }))
     .then((response) => response.json())
 }
@@ -233,3 +243,73 @@ function addCount(flag) {
         hintButt.style.backgroundColor = "#404040";
     }
 }
+/*
+//Test API
+
+const serverUrl = 'http://localhost:8080';
+
+// Функция для получения случайного слова
+function getRandomWord() {
+  fetch(`${serverUrl}/random_word`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Случайное слово:', data);
+      // Делайте что-то с полученным случайным словом
+    })
+    .catch(error => {
+      console.error('Произошла ошибка:', error);
+    });
+}
+
+// Функция для получения процента схожести
+function getSimilarity(query) {
+  fetch(`${serverUrl}/similarity?query=${query}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Процент схожести:', data);
+      // Делайте что-то с полученным процентом схожести
+    })
+    .catch(error => {
+      console.error('Произошла ошибка:', error);
+    });
+}
+
+// Функция для проверки слова
+function checkWord(query) {
+  fetch(`${serverUrl}/check?query=${query}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Результат проверки:', data);
+      // Делайте что-то с результатом проверки
+    })
+    .catch(error => {
+      console.error('Произошла ошибка:', error);
+    });
+}
+
+// Функция для получения подсказки
+function getHint(bestWord) {
+  fetch(`${serverUrl}/hint?best_word=${bestWord}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Подсказка:', data);
+      // Делайте что-то с полученной подсказкой
+    })
+    .catch(error => {
+      console.error('Произошла ошибка:', error);
+    });
+}
+
+// Функция для отображения завершения игры
+function showFinish() {
+  fetch(`${serverUrl}/show_finish`)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Завершение игры:', data);
+      // Делайте что-то с данными о завершении игры
+    })
+    .catch(error => {
+      console.error('Произошла ошибка:', error);
+    });
+}
+*/
